@@ -1,0 +1,29 @@
+yarn init -y
+yarn add parcel@next firebase
+agrego el script yarn dev al package
+
+creo src
+index.html e index.ts
+agrego state.ts y rtdb.ts
+
+en el state agrego:
+
+setEmailAndFullName()
+
+cambio la "data" del state. Me queda:
+{email, fullName, Messages}
+
+En index.ts sumo a setEmailAndFullName() 
+
+Creo en el state la funcion signin() Mn 20
+
+mIN 29 state.askNewRoom()
+
+min 43 state.accesToRoom()
+
+min 46 state.listenRoom()
+
+min 57
+
+min 1.03 repaso de funciones
+
