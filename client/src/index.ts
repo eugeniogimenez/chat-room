@@ -5,7 +5,8 @@ import "./router";
 import "./components/header/";
 
 //pages
-import "./pages/home/";
+import "./pages/home/index";
+import "./pages/chat/index";
 
 (function () {
   console.log("soy main");

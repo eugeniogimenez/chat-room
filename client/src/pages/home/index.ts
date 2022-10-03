@@ -8,8 +8,7 @@ customElements.define(
     }
 
     render() {
-      const div = document.createElement("div");
-      div.innerHTML = `
+      this.innerHTML = `
             <header-comp></header-comp>
             <h1>Hola 2</h1>
         `;

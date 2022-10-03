@@ -6,7 +6,7 @@ class Header extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <div class="header"></div>
+        <div class="header">Hola</div>
     `;
 
     this.innerText = "Hola, soy Header";
