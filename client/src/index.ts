@@ -3,6 +3,10 @@ import "./router";
 
 //components
 import "./components/header/";
+import "./components/text";
+import "./components/registration-form";
+import "./components/rooms-form";
+import "./components/button";
 
 //pages
 import "./pages/home/index";

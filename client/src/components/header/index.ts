@@ -1,22 +1,17 @@
-class Header extends HTMLElement {
+class HeaderComponent extends HTMLElement {
   constructor() {
     super();
     this.render();
   }
-
   render() {
     this.innerHTML = `
-        <div class="header">Hola</div>
+        <header class="header"></header>
     `;
-
-    this.innerText = "Hola, soy Header";
 
     const style = document.createElement("style");
     style.innerHTML = `
         .header {
-            border: solid;
             height: 60px;
-            width: 375px;
             background-color: #FF8282;
         }
     `;
@@ -25,4 +20,4 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define("header-comp", Header);
+customElements.define("header-comp", HeaderComponent);

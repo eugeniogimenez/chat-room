@@ -1,18 +1,16 @@
 customElements.define(
   "chat-page",
   class chatPage extends HTMLElement {
-    constructor() {
-      super();
-
+    connectedCallback() {
       this.render();
     }
 
     render() {
       this.innerHTML = `
               <header-comp></header-comp>
-              <h1>Hola 2</h1>
+              <h1>Soy chat</h1>
           `;
-      this.innerText = "soy chat-page";
+      //   this.innerText = "soy chat-page";
     }
   }
 );
