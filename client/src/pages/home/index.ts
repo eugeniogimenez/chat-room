@@ -14,17 +14,30 @@ customElements.define(
                 <text-comp class='title'>Bienvenidos</text-comp>
               </h1>
 
-              <div class='div-home'>
-                <div class='div-home-registration'>
-                  <registration-form class='subtitle registration'></registration-form>
-                </div>
-                <div class='div-home-rooms'>
-                  <rooms-form class='subtitle'></rooms-form>
-                </div>
-                <button-comp class='text_button'>Comenzar</button-comp>
-              </div>
+              <registration-form class='subtitle registration'></registration-form>
+                
+              <rooms-form class='subtitle'></rooms-form>
+                
+             
+
             </section>
         `;
+
+      const style = document.createElement("style");
+      style.innerHTML = `
+          .section-home{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        
+          .h1-home{
+              height: 55px;
+              min-width: 312px;
+          }
+        `;
+
+      this.appendChild(style);
     }
   }
 );

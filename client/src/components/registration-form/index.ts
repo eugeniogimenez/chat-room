@@ -24,7 +24,6 @@ class RegistrationFormComponent extends HTMLElement {
     const style = document.createElement("style");
     style.innerHTML = `
           .form {
-              
               display: flex;
               flex-direction: column;
           }
@@ -32,11 +31,14 @@ class RegistrationFormComponent extends HTMLElement {
           .label {
             display: flex;
             flex-direction: column;
+            
           }
 
           .input {
             height: 55px;
             min-width: 312px;
+            border: 2px solid #000000;
+            border-radius: 4px;
           }
       `;
 

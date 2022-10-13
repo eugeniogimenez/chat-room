@@ -7,6 +7,7 @@ import "./components/text";
 import "./components/registration-form";
 import "./components/rooms-form";
 import "./components/button";
+import "./components/chat-comp";
 
 //pages
 import "./pages/home/index";
@@ -31,7 +32,7 @@ import "./pages/chat/index";
   });
 
   //propuesta para evitar la primera pantalla
-  // //al comenzar
+  //al comenzar
   // state.init();
 
   // //recupera el State del loacalStorage

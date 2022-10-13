@@ -22,6 +22,7 @@ class ButtonComponent extends HTMLElement {
                 width: 100%;
                 height: 100%;
                 background-color: #9CBBE9;
+                border-radius: 4px;
             }
         `;
 
