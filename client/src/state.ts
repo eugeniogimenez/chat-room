@@ -1,6 +1,8 @@
 import { rtdb } from "./rtdb";
 import { ref, onValue } from "firebase/database";
 
+import { Router } from "@vaadin/router";
+
 import _ from "lodash";
 
 const API_BASE_URL = "http://localhost:3000";
@@ -17,11 +19,19 @@ const state = {
 
   listeners: [],
 
-  //avisa los cambios en la rtdb
   init() {
     console.log("Soy state.init()");
 
-    const lastStorageState = localStorage.getItem("state");
+    // SI NO HAY NOMBRE O EMAIL EN EL STATE, VUELVE A LA HOME PAGE
+    const currentState = this.getState();
+    if (currentState.nombre == null || currentState.email == null) {
+      Router.go("/");
+    }
+
+    //avisa los cambios en la rtdb
+    // const lastStorageState = localStorage.getItem("state");
+
+    console.log("state: ", this.getState());
   },
 
   listenRoom() {
@@ -29,7 +39,6 @@ const state = {
 
     const currentState = this.getState();
     const chatRoomsRef = ref(rtdb, "/rooms/" + currentState.rtdbRoomId);
-    console.log("chatRoomsRef: ", chatRoomsRef);
 
     //Con onValue escucho los cambios en la rtdb
     onValue(chatRoomsRef, (snapshot) => {
@@ -38,6 +47,7 @@ const state = {
 
       const messagesList = _.map(messagesFromServer.messages);
       currentState.messages = messagesList;
+      console.log("messagesList: ", messagesList);
 
       this.setState(currentState);
     });
@@ -47,6 +57,7 @@ const state = {
     return this.data;
   },
 
+  //Setea el nombre en el State
   setNombre(nombre: string) {
     console.log(
       "Soy state.setNombre(nombre), y el nombre recibido es: ",
@@ -57,6 +68,59 @@ const state = {
     currentState.nombre = nombre; // = data.nombre
 
     //piso el nombre que tenía con el nombre recibido
+    this.setState(currentState);
+  },
+
+  //setea el email en el state
+  setEmail(email: string) {
+    console.log("soy state.setEmail");
+
+    const currentState = this.getState();
+    currentState.email = email;
+
+    //Le seteo toda la data nueva
+    this.setState(currentState);
+  },
+
+  //Crea un usuario y devuelve su id
+  //le paso email y name.
+  createNewUser(newUserData) {
+    return fetch(API_BASE_URL + "/signup", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(newUserData),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        return data;
+        console.log("createNewUser data: ", data);
+      });
+  },
+
+  //Crea un nuevo Room poniendo al usuario como owner (dueño)
+  createNewRoom(userId) {
+    return fetch(API_BASE_URL + "/rooms", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(userId),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((finalres) => {
+        return finalres;
+        console.log("createNewRoom finalres: ", finalres);
+      });
+  },
+
+  //Setea el RoomId Corto en el State
+  setRoomId(roomId: string) {
+    console.log("state.setRoomId: ", roomId);
+
+    const currentState = this.getState();
+    currentState.firestereRoomId = roomId;
     this.setState(currentState);
   },
 
@@ -77,18 +141,6 @@ const state = {
         message: message,
       }),
     });
-  },
-  ///
-
-  setEmailAndFullName(email: string, fullName: string) {
-    console.log("soy setEmailAndFullName");
-
-    const currentState = this.getState();
-    currentState.fullName = fullName;
-    currentState.email = email;
-
-    //Le seteo toda la data nueva
-    this.setState(currentState);
   },
 
   setState(newState) {
@@ -177,37 +229,23 @@ const state = {
   },
 
   //Con el firestereRoomId que nos pasa askNewRoom() funciona ésta funcion
-  accessToRoom(callback?) {
-    console.log("soy state.accessToRoom");
+  connectToRoom(roomIdFacil, firestoreUserId) {
+    console.log("soy state.connectToRoom");
 
-    const currentState = this.getState();
-    // const rtdbRoomId = currentState.rtdbRoomId;
-    const roomIdFacil = currentState.firestoreRoomId;
-    console.log("roomIdFacil", roomIdFacil);
-
-    fetch(
-      API_BASE_URL +
-        "/rooms/" +
-        roomIdFacil +
-        "?userId=" +
-        currentState.firestoreUserId
+    return fetch(
+      API_BASE_URL + "/rooms/" + roomIdFacil + "?userId=" + firestoreUserId
     )
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log("rtdbRoomId en accessToRoom: ", data);
-
-        currentState.rtdbRoomId = data.rtdbRoomId;
-        this.setState(currentState);
-        this.listenRoom();
-
-        callback?.callback();
+        return data;
+        console.log("data en connectToRoom: ", data);
       });
   },
 
   subscribe(callback: (any) => any) {
-    console.log("soy state.subscribe() y mi callback es: ", callback);
+    console.log("soy state.subscribe()");
 
     this.listeners.push(callback);
   },

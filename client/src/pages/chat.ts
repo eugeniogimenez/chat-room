@@ -18,6 +18,8 @@ customElements.define(
                 <text-comp class='subtitle'>room id: AXFTR1</text-comp>
               </h3>
 
+              <chat-container></chat-container>
+
               <form>
                 <input class='input' type="text">
                 <button-comp class='text_button'>Enviar</button-comp>
@@ -36,8 +38,15 @@ customElements.define(
           }
         
           .chat-home{
-              height: 55px;
               min-width: 312px;
+          }
+
+          .input {
+            height: 55px;
+            min-width: 312px;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            margin-bottom: 12px;
           }
         `;
 

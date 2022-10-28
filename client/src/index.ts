@@ -7,29 +7,29 @@ import "./components/text";
 import "./components/registration-form";
 import "./components/rooms-form";
 import "./components/button";
-import "./components/chat-comp";
+import "./components/chat-container";
 
 //pages
-import "./pages/home/index";
-import "./pages/chat/index";
+import "./pages/home";
+import "./pages/chat";
 
 (function () {
   console.log("soy main");
 
   state.init();
 
-  //Esto sucede en el submit del form de la primera pantalla
-  state.setEmailAndFullName("marce@apx.school", "Marce");
+  // //Esto sucede en el submit del form de la primera pantalla
+  // state.setEmailAndFullName("marce@apx.school", "Marce");
 
-  //creo mi usuario
-  state.signIn((err) => {
-    if (err) console.error("hubo un error");
+  // //creo mi usuario
+  // state.signIn((err) => {
+  //   if (err) console.error("hubo un error");
 
-    //creo un room
-    state.askNewRoom(() => {
-      state.accessToRoom(); //para que se ejecute accesToRoom despues que askNewRoom se lo paso por callback
-    });
-  });
+  //   //creo un room
+  //   state.askNewRoom(() => {
+  //     state.accessToRoom(); //para que se ejecute accesToRoom despues que askNewRoom se lo paso por callback
+  //   });
+  // });
 
   //propuesta para evitar la primera pantalla
   //al comenzar
