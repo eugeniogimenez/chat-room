@@ -2,12 +2,10 @@ import { state } from "./state";
 import "./router";
 
 //components
+import "./components/button";
+import "./components/chatbubble";
 import "./components/header/";
 import "./components/text";
-import "./components/registration-form";
-import "./components/rooms-form";
-import "./components/button";
-import "./components/chat-container";
 
 //pages
 import "./pages/home";

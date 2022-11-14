@@ -10,6 +10,6 @@
     "parcel": "^2.0.0-rc.0"
   },
   "scripts": {
-    "dev": "parcel serve ./client/src/index.html"
+    "dev": "parcel serve ./client/index.html"
   }
 }

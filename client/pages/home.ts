@@ -1,3 +1,4 @@
+import { Router } from "@vaadin/router";
 import { state } from "../state";
 
 customElements.define(
@@ -57,27 +58,86 @@ customElements.define(
                 //Si la Room se crea correctamente, se define el ID en el State
                 newRoomPromise.then((res) => {
                   if (res.id) {
-                    const newRoomId = res.id;
-                    state.setRoomId(newRoomId);
+                    const newRoomIdSencillo = res.id;
+                    state.setRoomIdSencillo(newRoomIdSencillo);
 
                     //Se hace un get para poder adquirir el id largo de la room
                     const getRoomPromise = state.connectToRoom(
-                      newRoomId,
+                      newRoomIdSencillo, //room id facil
                       newUserId
                     );
 
                     getRoomPromise.then((res) => {
-                      //AQUI
+                      //Una vez adquirido el room id largo, se guarda en el State
+                      state.setLongRoomId(res.rtdbRoomId);
+                      //y se importa el chatroom
+                      state.importChatroom(res.rtdbRoomId);
+
+                      //Se avanza al chat
+                      Router.go("/chat");
                     });
                   }
                 });
               }
             });
+          } else {
+            alert(
+              '1-Tenes que completar los campos "email" y "nombre" para continuar'
+            );
           }
         }
+
         //2.EL USUARIO QUIERE UN ROOM EXISTENTE ('newRoom')
         if (roomSelect == "actualRoom") {
-        } else {
+          if (email.trim() !== "" && nombre.trim() !== "") {
+            state.setEmail(email);
+            state.setNombre(nombre);
+
+            //Se toma el input del room id ingresado
+            const roomIdInput = e.target.input.value;
+
+            const emailData = {
+              email,
+            };
+
+            //VERIFICA QUE EL USUARIO INGRESE UN EMAIL VALIDO
+            const emailAuthPromise = state.getEmailAuth(emailData);
+
+            emailAuthPromise.then((res) => {
+              //Si el email no existe devuelve un mensaje de error
+              if (res.message) {
+                alert(res.message);
+              }
+
+              //Si el email existe se recibe el firestoreUserId
+              if (res.firestoreUserId) {
+                const userAuthId = res.firestoreUserId; //user id
+                state.setRoomIdSencillo(roomIdInput); //sencillo
+
+                //Se hace un get para poder adquirir el rtdbRoomId
+                const getRoomPromise = state.connectToRoom(
+                  roomIdInput, //sencillo
+                  userAuthId //id de usuario
+                );
+
+                //si existe un error le avisa a el usuario
+                getRoomPromise.then((res) => {
+                  if (res.message) {
+                    alert(res.message);
+                  }
+
+                  //al obtener el roomid largo, se agrega al State y se define el State
+                  if (res.rtdbRoomId) {
+                    state.setLongRoomId(res.rtdbRoomId);
+                    state.importChatroom(res.rtdbRoomId);
+                    Router.go("/chat");
+                  }
+                });
+              }
+            });
+          } else {
+            alert('2-Tenes que completar los campos "email" y "nombre"');
+          }
         }
       });
     }
