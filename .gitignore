@@ -1,6 +1,12 @@
+node_modules
 .parcel-cache
 dist
-node_modules
-build
-guit.txt
+dev.ts
+db.js
+index.js
+.env
+key.json
+
+guia.txt
+
 

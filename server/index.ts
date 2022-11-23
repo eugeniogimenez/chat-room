@@ -1,30 +1,30 @@
 //El CLIENTE es POSTMAN, y nosotros el SERVIDOR
+import { nanoid } from "nanoid"; //importo nano id
 
-//importo la DB
-import { firestore, rtdb } from "./db";
-//importo express
+import { firestore, rtdb } from "./db"; //importo la DB
+
+//EXPRESS
 import * as express from "express";
 
-//instancio express
 const app = express();
 const port = 3000;
 
-//importo nano id
-import { nanoid } from "nanoid";
-
-//importo cors (permite al navegador usar apis)
-import * as cors from "cors";
-
-//middleware: software intermedio
-//la app se comunican entre si.
 app.use(express.json()); //parsea el body que le enviamos (req.body)
+
+//CORS
+import * as cors from "cors"; //importo cors (permite al navegador usar apis)
 app.use(cors()); //permite al navegador usar apis
 
-//Tendo dos collection para entrecruzar
+//TenGo dos collection para entrecruzar
 const usersCollection = firestore.collection("users");
 const roomsCollection = firestore.collection("rooms");
 
 //ENDPOINTS
+app.get("/env", (req, res) => {
+  res.json({
+    environment: process.env.NODE_ENV,
+  });
+});
 
 //1−SIGNUP: le doy de alta a un usuario
 app.post("/signup", (req, res) => {
@@ -174,6 +174,14 @@ app.post("/rooms/:roomLongId", function (req, res) {
   chatRoomRef.push(req.body, function () {
     res.json("todo ok");
   });
+});
+
+//EXPRESS STATIC
+app.use(express.static("dist"));
+
+//RETURN TO index.html
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/dist/index.html");
 });
 
 app.listen(port, () => {
