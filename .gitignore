@@ -1,11 +1,6 @@
-node_modules
 .parcel-cache
 dist
-dev.ts
-db.js
-index.js
-.env
-key.json
+node_modules
 
 guia.txt
 
