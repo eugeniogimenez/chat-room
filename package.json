@@ -13,15 +13,16 @@
     "install": "^0.13.0",
     "nodemon": "^2.0.20",
     "parcel": "^2.0.0-rc.0"
-  },  
+  },
   "scripts": {
     "dev:front": "parcel serve ./client/index.html",
     "dev:back": "nodemon --watch ./server/index.ts --exec ts-node ./server/dev.ts",
-
     "build:front": "parcel build ./client/index.html",
     "build:back": "tsc",
     "build": "yarn build:front && yarn build:back",
-
     "start": "node ./server/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
   }
 }
