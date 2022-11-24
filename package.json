@@ -19,7 +19,7 @@
     "dev:back": "nodemon --watch ./server/index.ts --exec ts-node ./server/dev.ts",
 
     "build:front": "parcel build ./client/index.html",
-    "build:back": "tsc ./server/index.ts",
+    "build:back": "tsc",
     "build": "yarn build:front && yarn build:back",
 
     "start": "node ./server/index.js"
