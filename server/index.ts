@@ -10,6 +10,8 @@ import * as process from "process";
 const app = express();
 const port = process.env.PORT || 3000;
 
+console.log(process.env.FULL_NAME);
+
 app.use(express.json()); //parsea el body que le enviamos (req.body)
 
 //CORS
@@ -24,8 +26,7 @@ const roomsCollection = firestore.collection("rooms");
 //ENDPOINTS
 app.get("/env", (req, res) => {
   res.json({
-    environment: process.env.BACK_URL,
-    mensaje: "hola",
+    environment: process.env.ENV,
   });
 });
 

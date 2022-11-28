@@ -7,7 +7,8 @@ const db_1 = require("./db"); //importo la DB
 const express = require("express");
 const process = require("process");
 const app = express();
-const port = process.env.BACK_URL || 3000;
+const port = process.env.PORT || 3000;
+console.log(process.env.FULL_NAME);
 app.use(express.json()); //parsea el body que le enviamos (req.body)
 //CORS
 const cors = require("cors"); //importo cors (permite al navegador usar apis)
@@ -18,8 +19,7 @@ const roomsCollection = db_1.firestore.collection("rooms");
 //ENDPOINTS
 app.get("/env", (req, res) => {
     res.json({
-        environment: process.env.BACK_URL,
-        mensaje: "hola",
+        environment: process.env.ENV,
     });
 });
 //1−SIGNUP: le doy de alta a un usuario
