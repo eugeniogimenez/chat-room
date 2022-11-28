@@ -3,8 +3,9 @@ import { nanoid } from "nanoid"; //importo nano id
 
 import { firestore, rtdb } from "./db"; //importo la DB
 
-//EXPRESS
+//EXPRESS y PROCESS
 import * as express from "express";
+import * as process from "process";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json()); //parsea el body que le enviamos (req.body)
 
 //CORS
 import * as cors from "cors"; //importo cors (permite al navegador usar apis)
+
 app.use(cors()); //permite al navegador usar apis
 
 //TenGo dos collection para entrecruzar
@@ -22,7 +24,8 @@ const roomsCollection = firestore.collection("rooms");
 //ENDPOINTS
 app.get("/env", (req, res) => {
   res.json({
-    environment: process.env.NODE_ENV,
+    environment: process.env.BACK_URL,
+    mensaje: "hola",
   });
 });
 
@@ -186,4 +189,5 @@ app.get("*", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
+  console.log(process.env.ENV);
 });
