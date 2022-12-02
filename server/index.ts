@@ -10,8 +10,6 @@ import * as process from "process";
 const app = express();
 const port = process.env.PORT || 3000;
 
-console.log(process.env.FULL_NAME);
-
 app.use(express.json()); //parsea el body que le enviamos (req.body)
 
 //CORS
@@ -191,4 +189,5 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
   console.log(process.env.ENV);
+  console.log(process.env.PORT);
 });
