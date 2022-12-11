@@ -1,7 +1,9 @@
 .parcel-cache
 dist
 node_modules
-
+dev.ts
+db.js
+index.js
+.env
+key.json
 guia.txt
-
-
