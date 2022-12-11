@@ -1,4 +1,4 @@
-
+key.json
 .parcel-cache
 dist
 node_modules
@@ -7,5 +7,4 @@ db.js
 index.js
 
 .env
-key.json
 guia.txt
